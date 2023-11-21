@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="/common.css">
+</head>
+<body>
+<div id="logo">
+    <img src="/logo.png">
+</div>
+<div id="menu">
+    <a href="/main" class="button">Strona Główna</a>
+    <a href="/contact" class="button">Kontakt</a>
+</div>
+<div id="content">
+    <div class="book" th:each="book : ${books}">
+        <div th:text="${book.title}" class="title"/>
+        <div th:text="${book.author}" class="author"/>
+        <div th:text="${'Cena: ' + book.price + ' zł'}" class="price"/>
+        <div th:text="${'ISBN: ' + book.isbn}" class="isbn"/>
+        <div th:text="${'Ilość: ' + book.quantity}" class="quantity"/>
+    </div>
+</div>
+</body>
+</html>

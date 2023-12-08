@@ -1,24 +1,21 @@
 package pl.edu.wszib.book.store.controllers;
 
 import jakarta.annotation.Resource;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.edu.wszib.book.store.dao.IUserDAO;
 import pl.edu.wszib.book.store.model.User;
+import pl.edu.wszib.book.store.services.IAuthenticationService;
 import pl.edu.wszib.book.store.session.SessionObject;
-
-import java.util.Optional;
 
 @Controller
 public class AuthenticationController {
 
     @Autowired
-    private IUserDAO userDAO;
+    private IAuthenticationService authenticationService;
 
     @Resource
     SessionObject sessionObject;
@@ -32,17 +29,16 @@ public class AuthenticationController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute User user) {
-        Optional<User> userBox = this.userDAO.getByLogin(user.getLogin());
-        if(userBox.isPresent() &&
-                userBox.get().getPassword().equals(DigestUtils.md5Hex(user.getPassword()))) {
-            this.sessionObject.setLoggedUser(userBox.get());
+        this.authenticationService.login(user.getLogin(), user.getPassword());
+        if(this.sessionObject.isLogged()) {
+            return "redirect:/main";
         }
-        return "redirect:/main";
+        return "redirect:/login";
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public String logout() {
-        this.sessionObject.setLoggedUser(null);
+        this.authenticationService.logout();
         return "redirect:/main";
     }
 }

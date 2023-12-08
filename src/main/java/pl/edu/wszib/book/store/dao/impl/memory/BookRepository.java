@@ -1,6 +1,6 @@
 package pl.edu.wszib.book.store.dao.impl.memory;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import pl.edu.wszib.book.store.dao.IBookDAO;
 import pl.edu.wszib.book.store.model.Book;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class BookRepository implements IBookDAO {
     private final List<Book> books = new ArrayList<>();
 

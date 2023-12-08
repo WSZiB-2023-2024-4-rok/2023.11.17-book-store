@@ -9,6 +9,7 @@
 <div id="menu" th:fragment="menu">
     <a href="/main" class="button">Strona Główna</a>
     <a href="/contact" class="button">Kontakt</a>
+    <a href="/cart" class="button" th:if="${isLogged}">Koszyk</a>
     <a href="/login" class="button" th:if="${!isLogged}">Login</a>
     <a href="/logout" class="button" th:if="${isLogged}">Logout</a>
 </div>

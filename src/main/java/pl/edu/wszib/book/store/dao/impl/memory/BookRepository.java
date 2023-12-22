@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class BookRepository implements IBookDAO {
     private final List<Book> books = new ArrayList<>();
 

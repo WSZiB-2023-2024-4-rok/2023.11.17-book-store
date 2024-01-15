@@ -48,12 +48,30 @@ public class BookDAO implements IBookDAO {
 
     @Override
     public void delete(int id) {
-
+        Session session = this.sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.remove(new Book(id));
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void update(Book book) {
-
+        Session session = this.sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.merge(book);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override

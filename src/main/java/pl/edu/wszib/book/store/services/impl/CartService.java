@@ -1,6 +1,7 @@
 package pl.edu.wszib.book.store.services.impl;
 
 import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,7 @@ public class CartService implements ICartService {
         cart.forEach(orderPosition -> {
             Book book = this.bookDAO.getById(orderPosition.getBook().getId()).get();
             book.setQuantity(book.getQuantity() - orderPosition.getQuantity());
+            orderPosition.setBook(book);
         });
 
         this.orderDAO.persist(order);

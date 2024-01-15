@@ -22,4 +22,8 @@ public class Book {
     private String isbn;
     private double price;
     private int quantity;
+
+    public Book(int id) {
+        this.id = id;
+    }
 }

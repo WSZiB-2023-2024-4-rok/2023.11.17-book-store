@@ -15,7 +15,7 @@ public class OrderPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Book book;
     private int quantity;
 
